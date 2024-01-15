@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAM2_M08_PR02_Ordenacions_1a_Part", "DAM2_M08_PR02_Ordenacions_1a_Part\DAM2_M08_PR02_Ordenacions_1a_Part.csproj", "{1DF3AFB0-0A09-43B2-91BE-30612F61F7E7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1DF3AFB0-0A09-43B2-91BE-30612F61F7E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DF3AFB0-0A09-43B2-91BE-30612F61F7E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DF3AFB0-0A09-43B2-91BE-30612F61F7E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DF3AFB0-0A09-43B2-91BE-30612F61F7E7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0E90B571-7C52-4710-BF0E-FDD43832CFAB}
+	EndGlobalSection
+EndGlobal

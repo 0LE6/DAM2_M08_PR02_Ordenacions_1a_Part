@@ -1,0 +1,9 @@
+﻿<Application x:Class="DAM2_M08_PR02_Ordenacions_1a_Part.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:DAM2_M08_PR02_Ordenacions_1a_Part"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
