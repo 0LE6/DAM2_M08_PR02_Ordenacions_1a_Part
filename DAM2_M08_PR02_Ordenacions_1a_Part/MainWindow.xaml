@@ -4,9 +4,86 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DAM2_M08_PR02_Ordenacions_1a_Part"
+        xmlns:wpftoolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Ordenacions" Height="530" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
+        <Expander Header="Configuració" IsExpanded="True" Grid.Column="0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <!-- Número de elementos -->
+                    <Label Content="Nº d'elements"/>
+                    <Slider Minimum="1" Maximum="100" Value="20" TickFrequency="1" IsSnapToTickEnabled="True"/>
+
+                    <!-- Grosor del borde -->
+                    <Label Content="Gruix del marc"/>
+                    <Slider Minimum="1" Maximum="10" Value="4" TickFrequency="1" IsSnapToTickEnabled="True"/>
+
+                    <!-- Radio de las columnas -->
+                    <Label Content="Radi de les columnes"/>
+                    <Slider Minimum="0" Maximum="50" Value="20" TickFrequency="1" IsSnapToTickEnabled="True"/>
+
+                    <!-- Tiempo de pausa -->
+                    <Label Content="Temps Pausa"/>
+                    <TextBox/>
+
+                    <!-- Marca Intercanvis -->
+                    <Label Content="Marca Intercanvis"/>
+                    <ComboBox>
+                        <ComboBoxItem Content="Opció 1"/>
+                        <ComboBoxItem Content="Opció 2"/>
+                        <!-- Añadir más opciones si es necesario -->
+                    </ComboBox>
+
+                    <!-- Tipos de figuras -->
+                    <Label Content="Tipus de figures"/>
+                    <ComboBox>
+                        <ComboBoxItem Content="Barras"/>
+                        <ComboBoxItem Content="Círculos"/>
+                        <!-- Añadir más opciones si es necesario -->
+                    </ComboBox>
+
+                    <!-- Tipos de ordenación -->
+                    <Label Content="Tipus d'ordenació"/>
+                    <ComboBox>
+                        <ComboBoxItem Content="Inserció Directa"/>
+                        <ComboBoxItem Content="Otro Método"/>
+                        <!-- Añadir más opciones si es necesario -->
+                    </ComboBox>
+
+                    <!-- Disposición inicial -->
+                    <Label Content="Disposició inicial"/>
+                    <RadioButton Content="Invertit"/>
+                    <RadioButton Content="Aleatori" IsChecked="True"/>
+
+                    <!-- Colores -->
+                    <Label Content="Colors"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Correcte"/>
+                        <wpftoolkit:ColorPicker/>
+                        <Label Content="Incorrecte"/>
+                        <wpftoolkit:ColorPicker/>
+                        <Label Content="Intercanviar"/>
+                        <wpftoolkit:ColorPicker/>
+                        <Label Content="Fons"/>
+                        <wpftoolkit:ColorPicker/>
+                    </StackPanel>
+
+                    <!-- Brillo del marc -->
+                    <Label Content="Brillo del marc"/>
+                    <Slider Minimum="-10" Maximum="10" Value="1" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Expander>
+
+        <!-- Aquí iría la región donde se visualiza el resultado de las ordenaciones -->
+        <Border Grid.Column="1" Background="Gray" Margin="5">
+            <!-- Canvas o ItemsControl para visualización -->
+        </Border>
     </Grid>
 </Window>
