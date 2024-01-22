@@ -101,16 +101,12 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
 
         private async Task IntercambiarFiguras(int index1, int index2)
         {
-            // Asegúrate de que los índices están dentro del rango
-            if (index1 < 0 || index1 >= elementos.Length || index2 < 0 || index2 >= elementos.Length)
-                return;
-
-            // Intercambia los valores en la array de elementos
+            // primero intercambiamos los valores en la array de elementos
             int temp = elementos[index1];
             elementos[index1] = elementos[index2];
             elementos[index2] = temp;
 
-            // Intercambia las figuras en el Canvas
+            // luego intercambiamos las figuras en el Canvas
             UIElement figura1 = cvCanvas.Children[index1];
             UIElement figura2 = cvCanvas.Children[index2];
 
@@ -152,17 +148,16 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             double nuevaPosX = nuevoIndex * espacioEntreFiguras;
 
             Canvas.SetLeft(figura, nuevaPosX);
-            // No necesitas actualizar Canvas.SetTop si las figuras siempre se alinean en la parte inferior del Canvas
         }
 
         ////////////////////// POSICIONAR /////////////////////////
 
         private void btnPosicionar_Click(object sender, RoutedEventArgs e)
         {
-            // Limpia el Canvas antes de dibujar nuevas figuras
+            // siempre limpiamos el canvas antes de pintar de nuevo
             cvCanvas.Children.Clear();
 
-            int numeroDeElementos = iudElements.Value ?? 0; // Asumiendo que iudElements es un IntegerUpDown
+            int numeroDeElementos = iudElements.Value ?? 0; 
             bool invertido = checkInvertit.IsChecked == true;
             bool aleatorio = checkAleatori.IsChecked == true;
 
@@ -175,6 +170,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             else if (aleatorio)
             {
                 Random rng = new Random();
+                // ordenamos de forma aleatoria y pasamos a arrauy
                 elementos = elementos.OrderBy(x => rng.Next()).ToArray();
             }
 
