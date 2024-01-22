@@ -40,6 +40,8 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             iudRadi.ValueChanged += iudRadi_ValueChanged;
         }
 
+        ////////////////////// CONTROLADORES DE EVENTOS /////////////////////////
+        
         private void iudRadi_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             if (e.NewValue is int nuevoRadio)
@@ -263,7 +265,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             }
         }
 
-        ////////////////////// SORT ALGORITHMS /////////////////////////  
+        ////////////////////// SORTING ALGORITHMS /////////////////////////  
 
         private async Task BubbleSort()
         {
@@ -362,8 +364,5 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
                 await IntercambiarFiguras(i, indexAnterior);
             }
         }
-
-
-
     }
 }
