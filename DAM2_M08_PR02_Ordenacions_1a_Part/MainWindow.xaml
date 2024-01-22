@@ -42,7 +42,7 @@
                     <!-- Tiempo de pausa -->
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Label Content="Temps Pausa" Width="125"/>
-                        <xctk:IntegerUpDown Minimum="0" Maximum="1000" Value="0" Increment="1" Width="130"/>
+                        <xctk:IntegerUpDown Name="iudPausa" Minimum="0" Maximum="1000" Value="0" Increment="1" Width="130"/>
                     </StackPanel>
 
                     <!-- Marca Intercanvis -->
@@ -55,7 +55,7 @@
 
                     <!-- Tipos de figuras -->
                     <Label Content="Tipus de figures"/>
-                    <ComboBox>
+                    <ComboBox Name="cbFiguras">
                         <ComboBoxItem Content="Barras"/>
                         <ComboBoxItem Content="Círculos"/>
                         <!-- Añadir más opciones si es necesario -->
@@ -63,7 +63,7 @@
 
                     <!-- Tipos de ordenación -->
                     <Label Content="Tipus d'ordenació"/>
-                    <ComboBox>
+                    <ComboBox Name="cbOrdenacion">
                         <ComboBoxItem Content="Inserció Directa"/>
                         <ComboBoxItem Content="Otro Método"/>
                         <!-- Añadir más opciones si es necesario -->
