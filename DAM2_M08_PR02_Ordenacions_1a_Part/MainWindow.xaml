@@ -48,8 +48,9 @@
                     <!-- Marca Intercanvis -->
                     <Label Content="Marca Intercanvis ????"/>
                     <ComboBox Name="cbColorIntercambios">
-                        <ComboBoxItem Content="Si"/>
-                        <ComboBoxItem Content="No"/>
+                        <CheckBox Name="checkColorSiONo" Content="Aleatori" Checked="checkColorSiONo_Checked"/>
+                        <!--<ComboBoxItem Content="Si"/>
+                        <ComboBoxItem Content="No"/>-->
                     </ComboBox>
 
                     <!-- Tipos de figuras -->

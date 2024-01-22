@@ -349,7 +349,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
                     // pintamos rectángulos
                     Rectangle rectangulo = new Rectangle
                     {
-                        Width = espacioEntreFiguras - (iudGrosor.Value ?? 0) * 2, // grosor del borde
+                        Width = espacioEntreFiguras ,
                         Height = alturaFigura,
                         Stroke = new SolidColorBrush(Colors.Black), 
                         StrokeThickness = iudGrosor.Value ?? 0,
@@ -487,6 +487,11 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
                 btnMute.Content = "Mute";
             }
             isMuted = !isMuted;
+        }
+
+        private void checkColorSiONo_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
