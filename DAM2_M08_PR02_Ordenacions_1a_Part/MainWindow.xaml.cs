@@ -32,10 +32,8 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             colorIncorrecter.SelectedColor = Colors.Red;
             colorIntercanvi.SelectedColor = Colors.Yellow;
 
-            // Si deseas configurar el color de fondo por defecto del Canvas:
-            colorFons.SelectedColor = Colors.White; // O el color que prefieras
+            colorFons.SelectedColor = Colors.White; 
             cvCanvas.Background = new SolidColorBrush(colorFons.SelectedColor.Value);
-
 
             iudPausa.ValueChanged += iudPausa_ValueChanged;
         }
