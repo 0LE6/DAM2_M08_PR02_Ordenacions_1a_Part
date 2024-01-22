@@ -65,7 +65,7 @@
                         <ComboBoxItem Content="Bubble sort"/>
                         <ComboBoxItem Content="Selection sort"/>
                         <ComboBoxItem Content="Insertion sort"/>
-                        <ComboBoxItem Content="Merge sort"/>
+                        <ComboBoxItem Content="Quick sort"/>
                         <!-- Añadir más opciones si es necesario -->
                     </ComboBox>
 

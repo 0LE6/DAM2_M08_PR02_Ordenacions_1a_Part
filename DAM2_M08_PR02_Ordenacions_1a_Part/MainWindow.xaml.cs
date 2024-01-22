@@ -30,10 +30,12 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             // Establecer colores por defecto para los ColorPickers
             colorCorrecte.SelectedColor = Colors.Green;
             colorIncorrecter.SelectedColor = Colors.Red;
+            colorIntercanvi.SelectedColor = Colors.Yellow;
 
             // Si deseas configurar el color de fondo por defecto del Canvas:
             colorFons.SelectedColor = Colors.White; // O el color que prefieras
             cvCanvas.Background = new SolidColorBrush(colorFons.SelectedColor.Value);
+
 
             iudPausa.ValueChanged += iudPausa_ValueChanged;
         }
@@ -61,6 +63,21 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             }
         }
 
+        private void ActualizarColorFigura(int index)
+        {
+            // Comprobamos si la figura está en la posición correcta comparándola con la array ordenada
+            int[] elementosOrdenados = elementos.OrderBy(x => x).ToArray();
+            Color colorFigura = 
+                elementos[index] == elementosOrdenados[index] 
+                ? colorCorrecte.SelectedColor.Value 
+                : colorIncorrecter.SelectedColor.Value;
+
+            // Actualizamos el color de la figura
+            if (cvCanvas.Children[index] is Shape figura)
+            {
+                figura.Fill = new SolidColorBrush(colorFigura);
+            }
+        }
 
         private async void btnOrdenar_Click(object sender, RoutedEventArgs e)
         {
@@ -70,11 +87,19 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
                 case "Bubble sort":
                     await BubbleSort();
                     break;
-                    // Agrega casos adicionales para otros métodos de ordenación
+                case "Selection sort":
+                    await SelectionSort();
+                    break;
+                case "Insertion sort":
+                    await InsertionSort();
+                    break;
+                case "Counting sort":
+                    await CountingSort();
+                    break;
             }
         }
 
-        private void IntercambiarFiguras(int index1, int index2)
+        private async Task IntercambiarFiguras(int index1, int index2)
         {
             // Asegúrate de que los índices están dentro del rango
             if (index1 < 0 || index1 >= elementos.Length || index2 < 0 || index2 >= elementos.Length)
@@ -100,8 +125,26 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             // Intercambia las figuras en la colección de hijos de Canvas
             cvCanvas.Children.Insert(index1, figura2);
             cvCanvas.Children.Insert(index2, figura1);
+
+            // Temporalmente cambiamos el color de las figuras que se están intercambiando
+            CambiarColorFiguraTemporal(index1, colorIntercanvi.SelectedColor.Value);
+            CambiarColorFiguraTemporal(index2, colorIntercanvi.SelectedColor.Value);
+
+            // Esperamos un poco para visualizar el intercambio
+            await Task.Delay(delay);
+
+            // Actualizamos el color de las figuras intercambiadas
+            ActualizarColorFigura(index1);
+            ActualizarColorFigura(index2);
         }
 
+        private void CambiarColorFiguraTemporal(int index, Color color)
+        {
+            if (cvCanvas.Children[index] is Shape figura)
+            {
+                figura.Fill = new SolidColorBrush(color);
+            }
+        }
 
         private void ActualizarPosicionFigura(UIElement figura, int nuevoIndex)
         {
@@ -112,9 +155,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             // No necesitas actualizar Canvas.SetTop si las figuras siempre se alinean en la parte inferior del Canvas
         }
 
-        // --------------------------------------------------------------------------
-        // --------------------------------------------------------------------------
-        // --------------------------------------------------------------------------
+        ////////////////////// POSICIONAR /////////////////////////
 
         private void btnPosicionar_Click(object sender, RoutedEventArgs e)
         {
@@ -204,6 +245,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
 
 
         ////////////////////// SORT ALGORITHMS /////////////////////////
+        
 
         private async Task BubbleSort()
         {
@@ -224,6 +266,84 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
                         await Task.Delay(delay);
                     }
                 }
+            }
+        }
+
+        private async Task SelectionSort()
+        {
+            int n = elementos.Length;
+            for (int i = 0; i < n - 1; i++)
+            {
+                int minIndex = i;
+                for (int j = i + 1; j < n; j++)
+                {
+                    if (elementos[j] < elementos[minIndex])
+                    {
+                        minIndex = j;
+                    }
+                }
+                if (minIndex != i)
+                {
+                    await IntercambiarFiguras(i, minIndex);
+                }
+            }
+        }
+
+        private async Task InsertionSort()
+        {
+            int n = elementos.Length;
+            for (int i = 1; i < n; i++)
+            {
+                int key = elementos[i];
+                int j = i - 1;
+
+                while (j >= 0 && elementos[j] > key)
+                {
+                    elementos[j + 1] = elementos[j];
+                    await IntercambiarFiguras(j, j + 1);
+                    j = j - 1;
+                }
+                elementos[j + 1] = key;
+            }
+        }
+
+        private async Task CountingSort()
+        {
+            int RANGE = elementos.Max() + 1; // Asegúrate de que el rango cubra todos los valores posibles
+            int[] count = new int[RANGE];
+            int[] output = new int[elementos.Length];
+
+            // Inicializa el array de conteo
+            for (int i = 0; i < RANGE; ++i)
+            {
+                count[i] = 0;
+            }
+
+            // Almacena el conteo de cada elemento
+            for (int i = 0; i < elementos.Length; ++i)
+            {
+                ++count[elementos[i]];
+            }
+
+            // Cambia count[i] para que contenga la posición actual en output de este elemento
+            for (int i = 1; i < RANGE; ++i)
+            {
+                count[i] += count[i - 1];
+            }
+
+            // Construye el array de salida
+            for (int i = elementos.Length - 1; i >= 0; i--)
+            {
+                output[count[elementos[i]] - 1] = elementos[i];
+                --count[elementos[i]];
+            }
+
+            // Copia los elementos a elementos[]
+            for (int i = 0; i < elementos.Length; ++i)
+            {
+                int indexAnterior = Array.IndexOf(elementos, output[i]);
+                elementos[i] = output[i];
+                await IntercambiarFiguras(i, indexAnterior);
             }
         }
 
