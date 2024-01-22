@@ -62,8 +62,10 @@
                     <!-- Tipos de ordenación -->
                     <Label Content="Tipus d'ordenació"/>
                     <ComboBox Name="cbOrdenacion">
-                        <ComboBoxItem Content="Inserció Directa"/>
-                        <ComboBoxItem Content="Otro Método"/>
+                        <ComboBoxItem Content="Bubble sort"/>
+                        <ComboBoxItem Content="Selection sort"/>
+                        <ComboBoxItem Content="Insertion sort"/>
+                        <ComboBoxItem Content="Merge sort"/>
                         <!-- Añadir más opciones si es necesario -->
                     </ComboBox>
 
