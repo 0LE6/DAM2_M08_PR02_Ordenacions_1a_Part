@@ -35,6 +35,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             colorFons.SelectedColor = Colors.White; 
             cvCanvas.Background = new SolidColorBrush(colorFons.SelectedColor.Value);
 
+            // he usado dos controladores de eventos para los valores de la pausa y el radi
             iudPausa.ValueChanged += iudPausa_ValueChanged;
             iudRadi.ValueChanged += iudRadi_ValueChanged;
         }
@@ -77,21 +78,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             }
         }
 
-        private void ActualizarColorFigura(int index)
-        {
-            // comprobamos si la figura está en la posición correcta respecto a la array sorted
-            int[] elementosOrdenados = elementos.OrderBy(x => x).ToArray();
-            Color colorFigura = 
-                elementos[index] == elementosOrdenados[index] 
-                ? colorCorrecte.SelectedColor.Value 
-                : colorIncorrecter.SelectedColor.Value;
-
-            // actualizamos el color de la figura
-            if (cvCanvas.Children[index] is Shape figura)
-            {
-                figura.Fill = new SolidColorBrush(colorFigura);
-            }
-        }
+        ////////////////////// ORDENAR /////////////////////////
 
         private async void btnOrdenar_Click(object sender, RoutedEventArgs e)
         {
@@ -136,7 +123,8 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             cvCanvas.Children.Insert(index1, figura2);
             cvCanvas.Children.Insert(index2, figura1);
 
-            // aqui manjeamos el color de intercambio, este que es temporal
+            // aqui manjeamos el co
+            // lor de intercambio, este que es temporal
             CambiarColorFiguraTemporal(index1, colorIntercanvi.SelectedColor.Value);
             CambiarColorFiguraTemporal(index2, colorIntercanvi.SelectedColor.Value);
 
@@ -163,6 +151,22 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             double nuevaPosX = nuevoIndex * espacioEntreFiguras;
 
             Canvas.SetLeft(figura, nuevaPosX);
+        }
+
+        private void ActualizarColorFigura(int index)
+        {
+            // comprobamos si la figura está en la posición correcta respecto a la array sorted
+            int[] elementosOrdenados = elementos.OrderBy(x => x).ToArray();
+            Color colorFigura =
+                elementos[index] == elementosOrdenados[index]
+                ? colorCorrecte.SelectedColor.Value
+                : colorIncorrecter.SelectedColor.Value;
+
+            // actualizamos el color de la figura
+            if (cvCanvas.Children[index] is Shape figura)
+            {
+                figura.Fill = new SolidColorBrush(colorFigura);
+            }
         }
 
         ////////////////////// POSICIONAR /////////////////////////
