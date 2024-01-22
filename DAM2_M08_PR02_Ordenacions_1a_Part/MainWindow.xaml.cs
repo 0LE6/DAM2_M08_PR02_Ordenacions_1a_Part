@@ -126,7 +126,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             CambiarColorFiguraTemporal(index1, colorIntercanvi.SelectedColor.Value);
             CambiarColorFiguraTemporal(index2, colorIntercanvi.SelectedColor.Value);
 
-            // Esperamos un poco para visualizar el intercambio
+            // un poco de delay para ver el cambio
             await Task.Delay(delay);
 
             // Actualizamos el color de las figuras intercambiadas
