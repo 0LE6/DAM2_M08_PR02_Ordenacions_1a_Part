@@ -73,8 +73,8 @@
                     <Border Background="Orange" Padding="3" Margin="0,5,0,5">
                         <Label Content="Disposició inicial" Foreground="White"/>
                     </Border>
-                    <CheckBox Content="Invertit"/>
-                    <CheckBox Content="Aleatori"/>
+                    <CheckBox Name="checkInvertit" Content="Invertit"/>
+                    <CheckBox Name="checkAleatori" Content="Aleatori"/>
 
                     <!-- Colores -->
                     <Border Background="Orange" Padding="3" Margin="0,5,0,5">
