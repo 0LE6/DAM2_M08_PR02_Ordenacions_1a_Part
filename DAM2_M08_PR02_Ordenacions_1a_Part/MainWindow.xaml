@@ -30,7 +30,7 @@
                     <!-- Grosor del borde -->
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Label Content="Gruix del marc" Width="125"/>
-                        <xctk:IntegerUpDown Name="iudGrosor" Minimum="1" Maximum="10" Value="0" Increment="1" Width="130"/>
+                        <xctk:IntegerUpDown Name="iudGrosor" Minimum="0" Maximum="10" Value="0" Increment="1" Width="130"/>
                     </StackPanel>
 
                     <!-- Radio de las columnas -->
