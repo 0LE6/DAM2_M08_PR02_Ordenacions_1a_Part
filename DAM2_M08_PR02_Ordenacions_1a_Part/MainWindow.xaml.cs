@@ -242,7 +242,6 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             }
         }
 
-
         ////////////////////// POSICIONAR /////////////////////////
 
         private void btnPosicionar_Click(object sender, RoutedEventArgs e)
@@ -301,7 +300,9 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
                     {
                         Width = tamañoCiculito,
                         Height = tamañoCiculito,
-                        Fill = elementos[i] == elementosOrdenados[i] ? scbCorrecte : scbIncorrecte // con esto estara de color correcto o incorrectto
+                        Fill = elementos[i] == elementosOrdenados[i] 
+                            ? scbCorrecte 
+                            : scbIncorrecte // con esto estara de color correcto o incorrectto
                     };
 
                     // lo situamos en el Canvas
@@ -320,7 +321,9 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
                         StrokeThickness = iudGrosor.Value ?? 0,
                         RadiusX = iudRadi.Value ?? 0,
                         RadiusY = iudRadi.Value ?? 0,
-                        Fill = elementos[i] == elementosOrdenados[i] ? scbCorrecte : scbIncorrecte
+                        Fill = elementos[i] == elementosOrdenados[i] 
+                            ? scbCorrecte 
+                            : scbIncorrecte
                     };
 
                     // lo situamos en el Canvas y ajustamos la posicion
