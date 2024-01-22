@@ -36,6 +36,22 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             cvCanvas.Background = new SolidColorBrush(colorFons.SelectedColor.Value);
 
             iudPausa.ValueChanged += iudPausa_ValueChanged;
+            iudRadi.ValueChanged += iudRadi_ValueChanged;
+        }
+
+        private void iudRadi_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (e.NewValue is int nuevoRadio)
+            {
+                foreach (var child in cvCanvas.Children)
+                {
+                    if (child is Rectangle rect)
+                    {
+                        rect.RadiusX = nuevoRadio;
+                        rect.RadiusY = nuevoRadio;
+                    }
+                }
+            }
         }
 
         private void iudPausa_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -228,6 +244,8 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
                         Height = alturaFigura,
                         Stroke = new SolidColorBrush(Colors.Black), 
                         StrokeThickness = iudGrosor.Value ?? 0,
+                        RadiusX = iudRadi.Value ?? 0,
+                        RadiusY = iudRadi.Value ?? 0,
                         Fill = new SolidColorBrush(elementos[i] == elementosOrdenados[i]
                         ? colorCorrecto 
                         : colorIncorrecto) 
