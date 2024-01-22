@@ -107,6 +107,8 @@
                         <Button Name="btnOrdenar" Click="btnOrdenar_Click" FontSize="20" Content="Ordenar" Background="Orange" Foreground="White"  Padding="5" Margin="10" />
                         <Button Name="btnPosicionar" Click="btnPosicionar_Click"  FontSize="20" Content="Posicionar" Background="Orange" Foreground="White" Margin="10" />
                     </StackPanel>
+                    <Button Name="btnMute" Content="Mute" Click="btnMute_Click" HorizontalAlignment="Center"/>
+
                 </StackPanel>
             </ScrollViewer>
         </Expander>

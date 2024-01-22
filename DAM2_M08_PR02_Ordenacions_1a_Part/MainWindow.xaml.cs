@@ -23,6 +23,8 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
         private int[] elementos;
         private int delay;
         private MediaPlayer mediaPlayer = new MediaPlayer();
+        private double tamañoCiculito = 15; // aqui ajusto el tamaño del circulito
+        private bool isMuted = false;
 
         public MainWindow()
         {
@@ -221,7 +223,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             double alturaCanvas = cvCanvas.ActualHeight;
             double anchoCanvas = cvCanvas.ActualWidth;
 
-            double tamañoFijo = 30; // aqui ajusto el tamaño del circulito
+            
 
             // calculo del espacio entre figuras
             double espacioEntreFiguras = anchoCanvas / elementos.Length;
@@ -246,16 +248,16 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
                     // pintamos círculos (elipses)
                     Ellipse circulo = new Ellipse
                     {
-                        Width = tamañoFijo,
-                        Height = tamañoFijo,
+                        Width = tamañoCiculito,
+                        Height = tamañoCiculito,
                         Fill = new SolidColorBrush(elementos[i] == elementosOrdenados[i] 
                         ? colorCorrecto 
                         : colorIncorrecto) // con esto estara de color correcto o incorrectto
                     };
 
                     // lo situamos en el Canvas
-                    Canvas.SetLeft(circulo, i * espacioEntreFiguras + (espacioEntreFiguras - tamañoFijo) / 2);
-                    Canvas.SetTop(circulo, alturaCanvas - alturaFigura - tamañoFijo / 2); // alineacion desde la parte superior
+                    Canvas.SetLeft(circulo, i * espacioEntreFiguras + (espacioEntreFiguras - tamañoCiculito) / 2);
+                    Canvas.SetTop(circulo, alturaCanvas - alturaFigura - tamañoCiculito / 2); // alineacion desde la parte superior
                     cvCanvas.Children.Add(circulo);
                 }
                 else
@@ -380,6 +382,23 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
                 elementos[i] = output[i];
                 await IntercambiarFiguras(i, indexAnterior);
             }
+        }
+
+        ////////////////////// MUSIC ///////////////////////// 
+
+        private void btnMute_Click(object sender, RoutedEventArgs e)
+        {
+            if (!isMuted)
+            {
+                mediaPlayer.Volume = 0;
+                btnMute.Content = "Unmute";
+            }
+            else
+            {
+                mediaPlayer.Volume = 1; // O restablecer al volumen anterior si lo has guardado
+                btnMute.Content = "Mute";
+            }
+            isMuted = !isMuted;
         }
     }
 }
