@@ -7,7 +7,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
 
         mc:Ignorable="d"
-        Title="Ordenació Visual" Height="635" Width="910">
+        Title="Ordenació Visual" Height="650" Width="910">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -78,7 +78,7 @@
 
                     <!-- Colores -->
                     <Border Background="Orange" Padding="3" Margin="0,5,0,5">
-                        <Label Content="Colors" Foreground="White"/>
+                        <Label Content="Colors" Foreground="White" />
                     </Border>
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -100,8 +100,9 @@
                     </StackPanel>
 
                     <!-- Brillo del marc -->
-                    <Label Content="Brillo del marc ????"/>
-                    <Slider Minimum="-10" Maximum="10" Value="1" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                    <!--<Label Content="Brillo del marc ????"/>                    
+                    <Slider Minimum="-10" Maximum="10" Value="1" TickFrequency="1" IsSnapToTickEnabled="True"/>-->
+                    <Button Name="btnOrdenar" FontSize="20" Content="Ordenar" Background="Orange" Foreground="White" Padding="10" Margin="10" />
                 </StackPanel>
             </ScrollViewer>
         </Expander>
