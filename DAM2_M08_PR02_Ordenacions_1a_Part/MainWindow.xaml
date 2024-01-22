@@ -48,9 +48,8 @@
                     <!-- Marca Intercanvis -->
                     <Label Content="Marca Intercanvis"/>
                     <ComboBox>
-                        <ComboBoxItem Content="Opció 1"/>
-                        <ComboBoxItem Content="Opció 2"/>
-                        <!-- Añadir más opciones si es necesario -->
+                        <ComboBoxItem Content="No entendi que tenia que hacer esto"/>
+                        <ComboBoxItem Content="Lo siento"/>
                     </ComboBox>
 
                     <!-- Tipos de figuras -->
@@ -58,7 +57,6 @@
                     <ComboBox Name="cbFiguras">
                         <ComboBoxItem Content="Barras"/>
                         <ComboBoxItem Content="Círculos"/>
-                        <!-- Añadir más opciones si es necesario -->
                     </ComboBox>
 
                     <!-- Tipos de ordenación -->
