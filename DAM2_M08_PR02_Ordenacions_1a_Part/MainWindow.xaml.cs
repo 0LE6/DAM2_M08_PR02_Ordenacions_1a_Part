@@ -35,8 +35,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             colorCorrecte.SelectedColor = Colors.Green;
             colorIncorrecter.SelectedColor = Colors.Red;
             colorIntercanvi.SelectedColor = Colors.Yellow;
-            colorFons.SelectedColor = Colors.White; 
-            
+            colorFons.SelectedColor = Colors.White;
 
             // he usado dos controladores de eventos para los valores de la pausa y el radi
             iudPausa.ValueChanged += iudPausa_ValueChanged;
@@ -96,7 +95,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
 
         private async void btnOrdenar_Click(object sender, RoutedEventArgs e)
         {
-            // no se si funcionara esta tonteria
+            // no se si funcionara esta tonteria (funciona lol)
             mediaPlayer.Open(new Uri("music/tetris.mp3", UriKind.Relative));
             mediaPlayer.Play();
 
