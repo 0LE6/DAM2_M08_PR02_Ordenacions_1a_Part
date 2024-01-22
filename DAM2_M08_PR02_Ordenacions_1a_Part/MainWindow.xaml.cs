@@ -74,31 +74,6 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             }
         }
 
-
-        private async Task BubbleSort()
-        {
-            int n = elementos.Length;
-            for (int i = 0; i < n - 1; i++)
-            {
-                for (int j = 0; j < n - i - 1; j++)
-                {
-                    if (elementos[j] > elementos[j + 1])
-                    {
-                        IntercambiarFiguras(j, j + 1);
-
-                        // Actualiza el Canvas después del intercambio
-                        cvCanvas.UpdateLayout();
-
-                        // Usa el valor del IntegerUpDown para el retraso
-                        //int delay = iudPausa.Value ?? 0; // Asegúrate de que iudPausa no sea null
-                        await Task.Delay(delay);
-                    }
-                }
-            }
-        }
-
-
-
         private void IntercambiarFiguras(int index1, int index2)
         {
             // Asegúrate de que los índices están dentro del rango
@@ -228,9 +203,29 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
         }
 
 
-        ///////////////////////////////////////////////
-        
+        ////////////////////// SORT ALGORITHMS /////////////////////////
 
+        private async Task BubbleSort()
+        {
+            int n = elementos.Length;
+            for (int i = 0; i < n - 1; i++)
+            {
+                for (int j = 0; j < n - i - 1; j++)
+                {
+                    if (elementos[j] > elementos[j + 1])
+                    {
+                        IntercambiarFiguras(j, j + 1);
+
+                        // Actualiza el Canvas después del intercambio
+                        cvCanvas.UpdateLayout();
+
+                        // Usa el valor del IntegerUpDown para el retraso
+                        //int delay = iudPausa.Value ?? 0; // Asegúrate de que iudPausa no sea null
+                        await Task.Delay(delay);
+                    }
+                }
+            }
+        }
 
 
 
