@@ -33,6 +33,24 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             cvCanvas.Background = new SolidColorBrush(colorFons.SelectedColor.Value);
         }
 
+        // Método auxiliar para controlar los checked y unchecked entre los 2 checkbox
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckBox checkBox = sender as CheckBox;
+
+            if (checkBox != null)
+            {
+                if (checkBox.Name == "checkInvertit" && checkInvertit.IsChecked == true)
+                {
+                    checkAleatori.IsChecked = false;
+                }
+                else if (checkBox.Name == "checkAleatori" && checkAleatori.IsChecked == true)
+                {
+                    checkInvertit.IsChecked = false;
+                }
+            }
+        }
+
 
         private void btnOrdenar_Click(object sender, RoutedEventArgs e)
         {
@@ -65,51 +83,66 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
 
         private void DibujarFiguras(int[] elementos)
         {
-            // Determina si dibujar círculos o barras
-            bool dibujarCirculos = (cbFiguras.SelectedItem as ComboBoxItem)?.Content.ToString() == "Círculos";
-
-            // Obtenim les dimensions del Canvas
+            // Obtenemos las dimensiones del Canvas
             double alturaCanvas = cvCanvas.ActualHeight;
-            double ampladaCanvas = cvCanvas.ActualWidth;
+            double anchoCanvas = cvCanvas.ActualWidth;
 
-            // Calculem l'ample de cada barra basant-nos en el número d'elements
-            double ampladaBarra = ampladaCanvas / elementos.Length;
+            double tamañoFijo = 30; // Este será el diámetro de los círculos
 
-            // Trobem l'element màxim per a escalar les alçades de les barres respecte aquest valor
-            int valorMaximo = elementos.Any() ? elementos.Max() : 0;
+            // Calculamos el espacio entre las figuras basándonos en el número de elementos
+            double espacioEntreFiguras = anchoCanvas / elementos.Length;
 
-            // Obtenim els colors dels ColorPickers
-            Color colorCorrecte = this.colorCorrecte.SelectedColor ?? Colors.Green; // Color verd per defecte
-            Color colorIncorrecte = this.colorIncorrecter.SelectedColor ?? Colors.Red;
+            // Encontramos el elemento máximo para escalar las alturas de las figuras con respecto a este valor
+            int valorMaximo = elementos.Any() ? elementos.Max() : 1; // Evitamos la división por cero
 
-            // Creem un array ordenat per a comparar
+            // Obtenemos los colores de los ColorPickers
+            Color colorCorrecto = this.colorCorrecte.SelectedColor ?? Colors.Green;
+            Color colorIncorrecto = this.colorIncorrecter.SelectedColor ?? Colors.Red;
+
+            // Creamos un array ordenado para comparar
             int[] elementosOrdenados = (int[])elementos.Clone();
             Array.Sort(elementosOrdenados);
 
             for (int i = 0; i < elementos.Length; i++)
             {
-                if (dibujarCirculos)
+                // Calculamos la posición y altura basándonos en el valor del elemento
+                double alturaFigura = (elementos[i] / (double)valorMaximo) * alturaCanvas;
+
+                if ((cbFiguras.SelectedItem as ComboBoxItem)?.Content.ToString() == "Círculos")
                 {
-                    // Dibuja círculos si es necesario
+                    // Dibujamos círculos (elipses)
+                    Ellipse circulo = new Ellipse
+                    {
+                        Width = tamañoFijo,
+                        Height = tamañoFijo,
+                        Fill = new SolidColorBrush(elementos[i] == elementosOrdenados[i] ? colorCorrecto : colorIncorrecto)
+                    };
+
+                    // Posicionamos el círculo en el Canvas
+                    Canvas.SetLeft(circulo, i * espacioEntreFiguras + (espacioEntreFiguras - tamañoFijo) / 2);
+                    Canvas.SetTop(circulo, alturaCanvas - alturaFigura - tamañoFijo / 2); // Alineamos desde la parte superior
+                    cvCanvas.Children.Add(circulo);
                 }
                 else
                 {
-                    // Dibuja barras
-                    double alturaBarra = (elementos[i] / (double)valorMaximo) * alturaCanvas;
-                    Rectangle rectangle = new Rectangle
+                    // Dibujamos rectángulos
+                    Rectangle rectangulo = new Rectangle
                     {
-                        Width = ampladaBarra - (iudGrosor.Value ?? 0) * 2, // Restem el grosor del borde per cada costat
-                        Height = alturaBarra,
+                        Width = espacioEntreFiguras - (iudGrosor.Value ?? 0) * 2, // Restamos el grosor del borde por cada lado
+                        Height = alturaFigura,
                         Stroke = new SolidColorBrush(Colors.Black), // Color del borde
                         StrokeThickness = iudGrosor.Value ?? 0,
-                        Fill = new SolidColorBrush(elementos[i] == elementosOrdenados[i] ? colorCorrecte : colorIncorrecte) // Color interior
+                        Fill = new SolidColorBrush(elementos[i] == elementosOrdenados[i] ? colorCorrecto : colorIncorrecto) // Color interior
                     };
-                    Canvas.SetLeft(rectangle, i * ampladaBarra); // Ajusta la posición X
-                    Canvas.SetTop(rectangle, alturaCanvas - alturaBarra); // Ajusta la posición Y des de la part inferior del Canvas
-                    cvCanvas.Children.Add(rectangle);
+
+                    // Posicionamos el rectángulo en el Canvas
+                    Canvas.SetLeft(rectangulo, i * espacioEntreFiguras); // Ajustamos la posición X
+                    Canvas.SetTop(rectangulo, alturaCanvas - alturaFigura); // Ajustamos la posición Y desde la parte inferior del Canvas
+                    cvCanvas.Children.Add(rectangulo);
                 }
             }
         }
+
 
 
 

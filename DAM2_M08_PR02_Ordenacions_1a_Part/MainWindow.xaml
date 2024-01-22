@@ -7,7 +7,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
 
         mc:Ignorable="d"
-        Title="Ordenació Visual" Height="650" Width="920">
+        Title="Ordenació Visual" Height="670" Width="920">
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -73,8 +73,9 @@
                     <Border Background="Orange" Padding="3" Margin="0,5,0,5">
                         <Label Content="Disposició inicial" Foreground="White"/>
                     </Border>
-                    <CheckBox Name="checkInvertit" Content="Invertit"/>
-                    <CheckBox Name="checkAleatori" Content="Aleatori"/>
+                    <CheckBox Name="checkInvertit" Content="Invertit" Checked="CheckBox_Checked"/>
+                    <CheckBox Name="checkAleatori" Content="Aleatori" Checked="CheckBox_Checked"/>
+
 
                     <!-- Colores -->
                     <Border Background="Orange" Padding="3" Margin="0,5,0,5">
