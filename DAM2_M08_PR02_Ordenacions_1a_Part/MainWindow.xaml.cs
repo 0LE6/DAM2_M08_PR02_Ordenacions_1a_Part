@@ -34,9 +34,9 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
         SolidColorBrush scbFondo;
 
         // TODO:
-        //      no usar fills (no usar async) // DoEvents i Espera - en el Moodle
-        //      usar 5 pincells
-        //      cambiar altura de figura y no intercambiar la figura entera
+        //  [ ]   no usar fills (no usar async) // DoEvents i Espera - en el Moodle
+        //  [X]   usar 5 pincells
+        //  [ ]   cambiar altura de figura y no intercambiar la figura entera
 
 
         public MainWindow()
