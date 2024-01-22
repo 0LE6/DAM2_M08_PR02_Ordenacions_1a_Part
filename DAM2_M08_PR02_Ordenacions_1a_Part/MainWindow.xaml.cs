@@ -187,65 +187,66 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             double alturaCanvas = cvCanvas.ActualHeight;
             double anchoCanvas = cvCanvas.ActualWidth;
 
-            double tamañoFijo = 30; // Este será el diámetro de los círculos
+            double tamañoFijo = 30; // aqui ajusto el tamaño del circulito
 
-            // Calculamos el espacio entre las figuras basándonos en el número de elementos
+            // calculo del espacio entre figuras
             double espacioEntreFiguras = anchoCanvas / elementos.Length;
 
-            // Encontramos el elemento máximo para escalar las alturas de las figuras con respecto a este valor
+            // buscamos el elemento máximo 
             int valorMaximo = elementos.Any() ? elementos.Max() : 1; // Evitamos la división por cero
 
-            // Obtenemos los colores de los ColorPickers
+            // cogemos los colores de los ColorPickels
             Color colorCorrecto = this.colorCorrecte.SelectedColor ?? Colors.Green;
             Color colorIncorrecto = this.colorIncorrecter.SelectedColor ?? Colors.Red;
 
-            // Creamos un array ordenado para comparar
+            // solucion burra: crear un array ordenado apra comparar
             int[] elementosOrdenados = (int[])elementos.Clone();
             Array.Sort(elementosOrdenados);
 
             for (int i = 0; i < elementos.Length; i++)
             {
-                // Calculamos la posición y altura basándonos en el valor del elemento
                 double alturaFigura = (elementos[i] / (double)valorMaximo) * alturaCanvas;
 
                 if ((cbFiguras.SelectedItem as ComboBoxItem)?.Content.ToString() == "Círculos")
                 {
-                    // Dibujamos círculos (elipses)
+                    // pintamos círculos (elipses)
                     Ellipse circulo = new Ellipse
                     {
                         Width = tamañoFijo,
                         Height = tamañoFijo,
-                        Fill = new SolidColorBrush(elementos[i] == elementosOrdenados[i] ? colorCorrecto : colorIncorrecto)
+                        Fill = new SolidColorBrush(elementos[i] == elementosOrdenados[i] 
+                        ? colorCorrecto 
+                        : colorIncorrecto) // con esto estara de color correcto o incorrectto
                     };
 
-                    // Posicionamos el círculo en el Canvas
+                    // lo situamos en el Canvas
                     Canvas.SetLeft(circulo, i * espacioEntreFiguras + (espacioEntreFiguras - tamañoFijo) / 2);
-                    Canvas.SetTop(circulo, alturaCanvas - alturaFigura - tamañoFijo / 2); // Alineamos desde la parte superior
+                    Canvas.SetTop(circulo, alturaCanvas - alturaFigura - tamañoFijo / 2); // alineacion desde la parte superior
                     cvCanvas.Children.Add(circulo);
                 }
                 else
                 {
-                    // Dibujamos rectángulos
+                    // pintamos rectángulos
                     Rectangle rectangulo = new Rectangle
                     {
-                        Width = espacioEntreFiguras - (iudGrosor.Value ?? 0) * 2, // Restamos el grosor del borde por cada lado
+                        Width = espacioEntreFiguras - (iudGrosor.Value ?? 0) * 2, // grosor del borde
                         Height = alturaFigura,
-                        Stroke = new SolidColorBrush(Colors.Black), // Color del borde
+                        Stroke = new SolidColorBrush(Colors.Black), 
                         StrokeThickness = iudGrosor.Value ?? 0,
-                        Fill = new SolidColorBrush(elementos[i] == elementosOrdenados[i] ? colorCorrecto : colorIncorrecto) // Color interior
+                        Fill = new SolidColorBrush(elementos[i] == elementosOrdenados[i]
+                        ? colorCorrecto 
+                        : colorIncorrecto) 
                     };
 
-                    // Posicionamos el rectángulo en el Canvas
-                    Canvas.SetLeft(rectangulo, i * espacioEntreFiguras); // Ajustamos la posición X
-                    Canvas.SetTop(rectangulo, alturaCanvas - alturaFigura); // Ajustamos la posición Y desde la parte inferior del Canvas
+                    // lo situamos en el Canvas y ajustamos la posicion
+                    Canvas.SetLeft(rectangulo, i * espacioEntreFiguras); 
+                    Canvas.SetTop(rectangulo, alturaCanvas - alturaFigura); 
                     cvCanvas.Children.Add(rectangulo);
                 }
             }
         }
 
-
-        ////////////////////// SORT ALGORITHMS /////////////////////////
-        
+        ////////////////////// SORT ALGORITHMS /////////////////////////  
 
         private async Task BubbleSort()
         {
@@ -257,12 +258,10 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
                     if (elementos[j] > elementos[j + 1])
                     {
                         IntercambiarFiguras(j, j + 1);
-
-                        // Actualiza el Canvas después del intercambio
                         cvCanvas.UpdateLayout();
-
-                        // Usa el valor del IntegerUpDown para el retraso
-                        //int delay = iudPausa.Value ?? 0; // Asegúrate de que iudPausa no sea null
+                        
+                        // Este es mi primer intento con mi primer sorting algorithm,
+                        // probamos dandole un delay segun selecciones el usuario
                         await Task.Delay(delay);
                     }
                 }

@@ -65,7 +65,7 @@
                         <ComboBoxItem Content="Bubble sort"/>
                         <ComboBoxItem Content="Selection sort"/>
                         <ComboBoxItem Content="Insertion sort"/>
-                        <ComboBoxItem Content="Quick sort"/>
+                        <ComboBoxItem Content="Counting sort (NO FUNCIONA)"/>
                         <!-- Añadir más opciones si es necesario -->
                     </ComboBox>
 
