@@ -7,7 +7,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
 
         mc:Ignorable="d"
-        Title="Ordenació Visual" Height="650" Width="910">
+        Title="Ordenació Visual" Height="650" Width="920">
 
     <Grid>
         <Grid.ColumnDefinitions>
