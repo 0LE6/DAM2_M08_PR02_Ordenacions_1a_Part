@@ -4,33 +4,42 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DAM2_M08_PR02_Ordenacions_1a_Part"
-        xmlns:wpftoolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+
         mc:Ignorable="d"
-        Title="Ordenacions" Height="530" Width="800">
+        Title="Ordenacions" Height="550" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
 
-        <Expander Header="Configuració" IsExpanded="True" Grid.Column="0">
+        <Expander Header="Configuració" IsExpanded="True" Grid.Column="0" >
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel>
                     <!-- Número de elementos -->
-                    <Label Content="Nº d'elements"/>
-                    <Slider Minimum="1" Maximum="100" Value="20" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Label Content="Nº d'elements" Width="125"/>
+                        <xctk:IntegerUpDown Minimum="1" Maximum="100" Value="20" Increment="1" Width="130"/>
+                    </StackPanel>
 
                     <!-- Grosor del borde -->
-                    <Label Content="Gruix del marc"/>
-                    <Slider Minimum="1" Maximum="10" Value="4" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Label Content="Gruix del marc" Width="125"/>
+                        <xctk:IntegerUpDown Minimum="1" Maximum="10" Value="4" Increment="1" Width="130"/>
+                    </StackPanel>
 
                     <!-- Radio de las columnas -->
-                    <Label Content="Radi de les columnes"/>
-                    <Slider Minimum="0" Maximum="50" Value="20" TickFrequency="1" IsSnapToTickEnabled="True"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Label Content="Radi de les columnes" Width="125"/>
+                        <xctk:IntegerUpDown Minimum="0" Maximum="50" Value="20" Increment="1" Width="130"/>
+                    </StackPanel>
 
                     <!-- Tiempo de pausa -->
-                    <Label Content="Temps Pausa"/>
-                    <TextBox/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Label Content="Temps Pausa" Width="125"/>
+                        <xctk:IntegerUpDown Minimum="0" Maximum="1000" Value="0" Increment="1" Width="130"/>
+                    </StackPanel>
 
                     <!-- Marca Intercanvis -->
                     <Label Content="Marca Intercanvis"/>
@@ -63,15 +72,23 @@
 
                     <!-- Colores -->
                     <Label Content="Colors"/>
-                    <StackPanel Orientation="Horizontal">
-                        <Label Content="Correcte"/>
-                        <wpftoolkit:ColorPicker/>
-                        <Label Content="Incorrecte"/>
-                        <wpftoolkit:ColorPicker/>
-                        <Label Content="Intercanviar"/>
-                        <wpftoolkit:ColorPicker/>
-                        <Label Content="Fons"/>
-                        <wpftoolkit:ColorPicker/>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Label Content="Correcte" Width="120"/>
+                            <xctk:ColorPicker Width="130"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Label Content="Incorrecte" Width="120"/>
+                            <xctk:ColorPicker Width="130"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Label Content="Intercanviar" Width="120"/>
+                            <xctk:ColorPicker Width="130"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Label Content="Fons" Width="120"/>
+                            <xctk:ColorPicker Width="130"/>
+                        </StackPanel>
                     </StackPanel>
 
                     <!-- Brillo del marc -->
@@ -81,9 +98,12 @@
             </ScrollViewer>
         </Expander>
 
-        <!-- Aquí iría la región donde se visualiza el resultado de las ordenaciones -->
-        <Border Grid.Column="1" Background="Gray" Margin="5">
-            <!-- Canvas o ItemsControl para visualización -->
+        <Border Grid.Column="1" Background="Bisque" Margin="0">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <Canvas Width="500" Height="500" Background="White">
+                    <!-- Los elementos del Canvas van aquí -->
+                </Canvas>
+            </ScrollViewer>
         </Border>
     </Grid>
 </Window>
