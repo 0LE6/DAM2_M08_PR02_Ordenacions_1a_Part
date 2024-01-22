@@ -81,19 +81,19 @@
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Label Content="Correcte" Width="120"/>
-                            <xctk:ColorPicker Width="130"/>
+                            <xctk:ColorPicker Name="colorCorrecte" Width="130"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Label Content="Incorrecte" Width="120"/>
-                            <xctk:ColorPicker Width="130"/>
+                            <xctk:ColorPicker Name="colorIncorrecter" Width="130"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Label Content="Intercanviar" Width="120"/>
-                            <xctk:ColorPicker Width="130"/>
+                            <xctk:ColorPicker Name="colorIntercanvi" Width="130"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Label Content="Fons" Width="120"/>
-                            <xctk:ColorPicker Width="130"/>
+                            <xctk:ColorPicker Name="colorFons" Width="130"/>
                         </StackPanel>
                     </StackPanel>
 
