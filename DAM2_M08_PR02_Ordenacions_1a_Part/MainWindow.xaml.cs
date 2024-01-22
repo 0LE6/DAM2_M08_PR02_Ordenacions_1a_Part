@@ -20,6 +20,8 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
     /// </summary>
     public partial class MainWindow : Window
     {
+        private int[] elementos;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -52,10 +54,83 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
         }
 
 
-        private void btnOrdenar_Click(object sender, RoutedEventArgs e)
+        private async void btnOrdenar_Click(object sender, RoutedEventArgs e)
         {
-
+            string metodoSeleccionado = (cbOrdenacion.SelectedItem as ComboBoxItem)?.Content.ToString();
+            switch (metodoSeleccionado)
+            {
+                case "Bubble sort":
+                    await BubbleSort();
+                    break;
+                    // Agrega casos adicionales para otros métodos de ordenación
+            }
         }
+
+
+        private async Task BubbleSort()
+        {
+            // Implementación del Bubble Sort que utiliza el método IntercambiarFiguras
+            int n = elementos.Length;
+            for (int i = 0; i < n - 1; i++)
+            {
+                for (int j = 0; j < n - i - 1; j++)
+                {
+                    if (elementos[j] > elementos[j + 1])
+                    {
+                        IntercambiarFiguras(j, j + 1);
+
+                        // Actualiza el Canvas después del intercambio
+                        cvCanvas.UpdateLayout();
+
+                        // Espera un poco antes de continuar con el siguiente intercambio
+                        await Task.Delay(100); // retraso en milisegundos
+                    }
+                }
+            }
+        }
+
+
+        private void IntercambiarFiguras(int index1, int index2)
+        {
+            // Asegúrate de que los índices están dentro del rango
+            if (index1 < 0 || index1 >= elementos.Length || index2 < 0 || index2 >= elementos.Length)
+                return;
+
+            // Intercambia los valores en la array de elementos
+            int temp = elementos[index1];
+            elementos[index1] = elementos[index2];
+            elementos[index2] = temp;
+
+            // Intercambia las figuras en el Canvas
+            UIElement figura1 = cvCanvas.Children[index1];
+            UIElement figura2 = cvCanvas.Children[index2];
+
+            // Actualiza la posición de las figuras intercambiadas en el Canvas
+            ActualizarPosicionFigura(figura1, index2);
+            ActualizarPosicionFigura(figura2, index1);
+
+            // Remueve los elementos de la colección de hijos de Canvas antes de intercambiar
+            cvCanvas.Children.Remove(figura1);
+            cvCanvas.Children.Remove(figura2);
+
+            // Intercambia las figuras en la colección de hijos de Canvas
+            cvCanvas.Children.Insert(index1, figura2);
+            cvCanvas.Children.Insert(index2, figura1);
+        }
+
+
+        private void ActualizarPosicionFigura(UIElement figura, int nuevoIndex)
+        {
+            double espacioEntreFiguras = cvCanvas.ActualWidth / elementos.Length;
+            double nuevaPosX = nuevoIndex * espacioEntreFiguras;
+
+            Canvas.SetLeft(figura, nuevaPosX);
+            // No necesitas actualizar Canvas.SetTop si las figuras siempre se alinean en la parte inferior del Canvas
+        }
+
+        // --------------------------------------------------------------------------
+        // --------------------------------------------------------------------------
+        // --------------------------------------------------------------------------
 
         private void btnPosicionar_Click(object sender, RoutedEventArgs e)
         {
@@ -66,7 +141,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             bool invertido = checkInvertit.IsChecked == true;
             bool aleatorio = checkAleatori.IsChecked == true;
 
-            int[] elementos = Enumerable.Range(1, numeroDeElementos).ToArray();
+            elementos = Enumerable.Range(1, numeroDeElementos).ToArray();
 
             if (invertido)
             {
@@ -143,6 +218,9 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             }
         }
 
+
+        ///////////////////////////////////////////////
+        
 
 
 
