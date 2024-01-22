@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit;
 
 namespace DAM2_M08_PR02_Ordenacions_1a_Part
 {
@@ -27,13 +28,13 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
         private bool isMuted = false;
 
         // meter 4 pincells (solid color brush)
-        SolidColorBrush scbCorrecte;
+        SolidColorBrush scbCorrecte ;
         SolidColorBrush scbIncorrecte;
-        SolidColorBrush scbIntercambio;
+        SolidColorBrush scbIntercambio ;
         SolidColorBrush scbFondo;
 
         // TODO:
-        //      no usar fills
+        //      no usar fills (no usar async) // DoEvents i Espera - en el Moodle
         //      usar 5 pincells
         //      cambiar altura de figura y no intercambiar la figura entera
 
@@ -44,12 +45,19 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
 
             // he tendio que poner este apaño del gpt porque no me cargaba el default del iupPausa
             iudPausa_ValueChanged(iudPausa, new RoutedPropertyChangedEventArgs<object>(null, iudPausa.Value));
-            
+
             // Establecer colores por defecto para los ColorPickers
-            colorCorrecte.SelectedColor = Colors.Green;
-            colorIncorrecter.SelectedColor = Colors.Red;
-            colorIntercanvi.SelectedColor = Colors.Yellow;
-            colorFons.SelectedColor = Colors.White;
+            // TODO: aqui meter los de lo pincells
+            scbCorrecte = new SolidColorBrush(Colors.Green);
+            scbIncorrecte = new SolidColorBrush(Colors.Red);
+            scbIntercambio = new SolidColorBrush(Colors.Yellow);
+            scbFondo = new SolidColorBrush(Colors.White);
+
+            // controladores de eventos para que lso cambios en los IntegerUpDown se vayan reflejando en mis 4 pincells
+            colorCorrecte.SelectedColorChanged += ColorPicker_SelectedColorChanged;
+            colorIncorrecter.SelectedColorChanged += ColorPicker_SelectedColorChanged;
+            colorIntercanvi.SelectedColorChanged += ColorPicker_SelectedColorChanged;
+            colorFons.SelectedColorChanged += ColorPicker_SelectedColorChanged;
 
             // he usado dos controladores de eventos para los valores de la pausa y el radi
             iudPausa.ValueChanged += iudPausa_ValueChanged;
@@ -58,12 +66,46 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
         }
 
         ////////////////////// CONTROLADORES DE EVENTOS /////////////////////////
+        private void ColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            if (sender is ColorPicker colorPicker)
+            {
+                switch (colorPicker.Name)
+                {
+                    case "colorCorrecte":
+                        if (e.NewValue.HasValue)
+                        {
+                            scbCorrecte.Color = e.NewValue.Value;
+                        }
+                        break;
+                    case "colorIncorrecter":
+                        if (e.NewValue.HasValue)
+                        {
+                            scbIncorrecte.Color = e.NewValue.Value;
+                        }
+                        break;
+                    case "colorIntercanvi":
+                        if (e.NewValue.HasValue)
+                        {
+                            scbIntercambio.Color = e.NewValue.Value;
+                        }
+                        break;
+                    case "colorFons":
+                        if (e.NewValue.HasValue)
+                        {
+                            scbFondo.Color = e.NewValue.Value;
+                            cvCanvas.Background = scbFondo;
+                        }
+                        break;
+                }
+            }
+        }
 
         private void ColorFons_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
         {
             if (e.NewValue.HasValue)
             {
-                cvCanvas.Background = new SolidColorBrush(e.NewValue.Value);
+                cvCanvas.Background = scbFondo;
             }
         }
 
@@ -158,8 +200,8 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
 
             // aqui manjeamos el co
             // lor de intercambio, este que es temporal
-            CambiarColorFiguraTemporal(index1, colorIntercanvi.SelectedColor.Value);
-            CambiarColorFiguraTemporal(index2, colorIntercanvi.SelectedColor.Value);
+            CambiarColorFiguraTemporal(index1);
+            CambiarColorFiguraTemporal(index2);
 
             // un poco de delay para ver el cambio
             await Task.Delay(delay);
@@ -170,11 +212,11 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             ActualizarColorFigura(index2);
         }
 
-        private void CambiarColorFiguraTemporal(int index, Color color)
+        private void CambiarColorFiguraTemporal(int index)
         {
             if (cvCanvas.Children[index] is Shape figura)
             {
-                figura.Fill = new SolidColorBrush(color);
+                figura.Fill = scbIntercambio;
             }
         }
 
@@ -188,19 +230,18 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
 
         private void ActualizarColorFigura(int index)
         {
-            // comprobamos si la figura está en la posición correcta respecto a la array sorted
+            // Comprobamos si la figura está en la posición correcta respecto al array ordenado
             int[] elementosOrdenados = elementos.OrderBy(x => x).ToArray();
-            Color colorFigura =
-                elementos[index] == elementosOrdenados[index]
-                ? colorCorrecte.SelectedColor.Value
-                : colorIncorrecter.SelectedColor.Value;
 
-            // actualizamos el color de la figura
+            // Actualizamos el color de la figura
             if (cvCanvas.Children[index] is Shape figura)
             {
-                figura.Fill = new SolidColorBrush(colorFigura);
+                figura.Fill = elementos[index] == elementosOrdenados[index]
+                    ? scbCorrecte
+                    : scbIncorrecte;
             }
         }
+
 
         ////////////////////// POSICIONAR /////////////////////////
 
@@ -234,9 +275,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             // Obtenemos las dimensiones del Canvas
             double alturaCanvas = cvCanvas.ActualHeight;
             double anchoCanvas = cvCanvas.ActualWidth;
-
-            
-
+                      
             // calculo del espacio entre figuras
             double espacioEntreFiguras = anchoCanvas / elementos.Length;
 
@@ -262,9 +301,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
                     {
                         Width = tamañoCiculito,
                         Height = tamañoCiculito,
-                        Fill = new SolidColorBrush(elementos[i] == elementosOrdenados[i] 
-                        ? colorCorrecto 
-                        : colorIncorrecto) // con esto estara de color correcto o incorrectto
+                        Fill = elementos[i] == elementosOrdenados[i] ? scbCorrecte : scbIncorrecte // con esto estara de color correcto o incorrectto
                     };
 
                     // lo situamos en el Canvas
@@ -283,9 +320,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
                         StrokeThickness = iudGrosor.Value ?? 0,
                         RadiusX = iudRadi.Value ?? 0,
                         RadiusY = iudRadi.Value ?? 0,
-                        Fill = new SolidColorBrush(elementos[i] == elementosOrdenados[i]
-                        ? colorCorrecto 
-                        : colorIncorrecto) 
+                        Fill = elementos[i] == elementosOrdenados[i] ? scbCorrecte : scbIncorrecte
                     };
 
                     // lo situamos en el Canvas y ajustamos la posicion
