@@ -47,21 +47,21 @@
 
                     <!-- Marca Intercanvis -->
                     <Label Content="Marca Intercanvis ????"/>
-                    <ComboBox>
-                        <ComboBoxItem Content="No entendi que tenia que hacer esto"/>
-                        <ComboBoxItem Content="Lo siento"/>
+                    <ComboBox Name="cbColorIntercambios">
+                        <ComboBoxItem Content="Si"/>
+                        <ComboBoxItem Content="No"/>
                     </ComboBox>
 
                     <!-- Tipos de figuras -->
                     <Label Content="Tipus de figures"/>
-                    <ComboBox Name="cbFiguras">
+                    <ComboBox Name="cbFiguras" SelectedIndex="0">
                         <ComboBoxItem Content="Barras"/>
                         <ComboBoxItem Content="Círculos"/>
                     </ComboBox>
 
                     <!-- Tipos de ordenación -->
                     <Label Content="Tipus d'ordenació"/>
-                    <ComboBox Name="cbOrdenacion">
+                    <ComboBox Name="cbOrdenacion" SelectedIndex="0">
                         <ComboBoxItem Content="Bubble sort"/>
                         <ComboBoxItem Content="Selection sort"/>
                         <ComboBoxItem Content="Insertion sort"/>

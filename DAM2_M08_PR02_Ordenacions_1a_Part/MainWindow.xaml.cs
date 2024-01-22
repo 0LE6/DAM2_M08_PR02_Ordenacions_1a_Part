@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using Xceed.Wpf.Toolkit;
 
 namespace DAM2_M08_PR02_Ordenacions_1a_Part
@@ -32,6 +34,10 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
         SolidColorBrush scbIncorrecte;
         SolidColorBrush scbIntercambio ;
         SolidColorBrush scbFondo;
+
+        private DispatcherTimer delayTimer;
+
+
 
         // TODO:
         //  [ ]   no usar fills (no usar async) // DoEvents i Espera - en el Moodle
@@ -63,9 +69,20 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             iudPausa.ValueChanged += iudPausa_ValueChanged;
             iudRadi.ValueChanged += iudRadi_ValueChanged;
             colorFons.SelectedColorChanged += ColorFons_SelectedColorChanged;
+
+            delayTimer = new DispatcherTimer();
+            delayTimer.Interval = TimeSpan.FromMilliseconds(500); // Ajusta esto según el retraso deseado
+            delayTimer.Tick += DelayTimer_Tick;
+
+
         }
 
         ////////////////////// CONTROLADORES DE EVENTOS /////////////////////////
+        private void DelayTimer_Tick(object sender, EventArgs e)
+        {
+            delayTimer.Stop(); 
+        }
+
         private void ColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
         {
             if (sender is ColorPicker colorPicker)
@@ -147,9 +164,23 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             }
         }
 
+        // Codigo sacado del Moodle, autor: Xavier Sanmartí
+        private void Retraso(int milliseconds)
+        {
+            var frame = new DispatcherFrame();
+            new Thread(() =>
+            {
+                Thread.Sleep(milliseconds);
+                frame.Continue = false; // Esto finaliza el DispatcherFrame
+            }).Start();
+
+            Dispatcher.PushFrame(frame); // Esto bloquea la ejecución hasta que el frame se detenga
+        }
+
+
         ////////////////////// ORDENAR /////////////////////////
 
-        private async void btnOrdenar_Click(object sender, RoutedEventArgs e)
+        private void btnOrdenar_Click(object sender, RoutedEventArgs e)
         {
             // no se si funcionara esta tonteria (funciona lol)
             mediaPlayer.Open(new Uri("music/tetris.mp3", UriKind.Relative));
@@ -160,54 +191,40 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             switch (metodoSeleccionado)
             {
                 case "Bubble sort":
-                    await BubbleSort();
+                    BubbleSort();
                     break;
                 case "Selection sort":
-                    await SelectionSort();
+                    SelectionSort();
                     break;
                 case "Insertion sort":
-                    await InsertionSort();
+                    InsertionSort();
                     break;
                 case "Counting sort":
-                    await CountingSort();
+                    CountingSort();
                     break;
             }
             mediaPlayer.Stop();
         }
 
-        private async Task IntercambiarFiguras(int index1, int index2)
+        private void IntercambiarFiguras(int index1, int index2)
         {
-            // primero intercambiamos los valores en la array de elementos
+            // aqui cambiamos los colorines de las 2 figuritas que se intercambian
+            CambiarColorFiguraTemporal(index1);
+            CambiarColorFiguraTemporal(index2);
+
+            // Intercambiar valores en el array de elementos
             int temp = elementos[index1];
             elementos[index1] = elementos[index2];
             elementos[index2] = temp;
 
-            // luego intercambiamos las figuras en el Canvas
-            UIElement figura1 = cvCanvas.Children[index1];
-            UIElement figura2 = cvCanvas.Children[index2];
+            // Cambiar las alturas de las figuras en lugar de intercambiarlas
+            ActualizarAlturaFigura(index1, elementos[index1]);
+            ActualizarAlturaFigura(index2, elementos[index2]);
 
-            // actualizamos la posición de las figuras intercambiadas en el Canvas
-            ActualizarPosicionFigura(figura1, index2);
-            ActualizarPosicionFigura(figura2, index1);
+            // Aplicar un breve retraso
+            Retraso(delay);
 
-            // eliminamos los elementos de la colección de hijos de Canvas antes de intercambiar
-            // para posteriormente intercambiarlas figuras 
-            cvCanvas.Children.Remove(figura1);
-            cvCanvas.Children.Remove(figura2);
-
-            cvCanvas.Children.Insert(index1, figura2);
-            cvCanvas.Children.Insert(index2, figura1);
-
-            // aqui manjeamos el co
-            // lor de intercambio, este que es temporal
-            CambiarColorFiguraTemporal(index1);
-            CambiarColorFiguraTemporal(index2);
-
-            // un poco de delay para ver el cambio
-            await Task.Delay(delay);
-
-            // y al final se pone nlos colores de las dos figuras intercambiadas del 
-            // correcto o incorrecto segun donde este situada
+            // Restaurar el color original de las figuras después del retraso
             ActualizarColorFigura(index1);
             ActualizarColorFigura(index2);
         }
@@ -220,20 +237,37 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             }
         }
 
-        private void ActualizarPosicionFigura(UIElement figura, int nuevoIndex)
+        private void ActualizarAlturaFigura(int index, int valor)
         {
-            double espacioEntreFiguras = cvCanvas.ActualWidth / elementos.Length;
-            double nuevaPosX = nuevoIndex * espacioEntreFiguras;
+            if (cvCanvas.Children.Count > index)
+            {
+                if (cvCanvas.Children[index] is Shape figura)
+                {
+                    double alturaCanvas = cvCanvas.ActualHeight;
+                    int valorMaximo = elementos.Max();
+                    double nuevaAltura = (valor / (double)valorMaximo) * alturaCanvas;
 
-            Canvas.SetLeft(figura, nuevaPosX);
+                    // Ajustar la altura y la posición vertical de la figura
+                    if (figura is Rectangle rect)
+                    {
+                        rect.Height = nuevaAltura;
+                        Canvas.SetTop(rect, alturaCanvas - nuevaAltura);
+                    }
+                    else if (figura is Ellipse elipse)
+                    {
+                        // Para elipses, puedes decidir cambiar su tamaño o posición
+                        // Aquí, como ejemplo, cambio el tamaño
+ // Mantener la proporción si es necesario
+                        Canvas.SetTop(elipse, alturaCanvas - nuevaAltura);
+                    }
+                }
+            }
         }
 
         private void ActualizarColorFigura(int index)
         {
-            // Comprobamos si la figura está en la posición correcta respecto al array ordenado
             int[] elementosOrdenados = elementos.OrderBy(x => x).ToArray();
 
-            // Actualizamos el color de la figura
             if (cvCanvas.Children[index] is Shape figura)
             {
                 figura.Fill = elementos[index] == elementosOrdenados[index]
@@ -336,7 +370,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
 
         ////////////////////// SORTING ALGORITHMS /////////////////////////  
 
-        private async Task BubbleSort()
+        private void BubbleSort()
         {
             int n = elementos.Length;
             for (int i = 0; i < n - 1; i++)
@@ -347,16 +381,19 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
                     {
                         IntercambiarFiguras(j, j + 1);
                         cvCanvas.UpdateLayout();
-                        
+
                         // Este es mi primer intento con mi primer sorting algorithm,
                         // probamos dandole un delay segun selecciones el usuario
-                        await Task.Delay(delay);
+                        //await Task.Delay(delay);
+
+                        // un breve retraso
+                        Retraso(delay);
                     }
                 }
             }
         }
 
-        private async Task SelectionSort()
+        private void SelectionSort()
         {
             int n = elementos.Length;
             for (int i = 0; i < n - 1; i++)
@@ -371,12 +408,12 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
                 }
                 if (minIndex != i)
                 {
-                    await IntercambiarFiguras(i, minIndex);
+                    IntercambiarFiguras(i, minIndex);
                 }
             }
         }
 
-        private async Task InsertionSort()
+        private void InsertionSort()
         {
             int n = elementos.Length;
             for (int i = 1; i < n; i++)
@@ -387,7 +424,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
                 while (j >= 0 && elementos[j] > key)
                 {
                     elementos[j + 1] = elementos[j];
-                    await IntercambiarFiguras(j, j + 1);
+                    IntercambiarFiguras(j, j + 1);
                     j = j - 1;
                 }
                 elementos[j + 1] = key;
@@ -395,7 +432,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
         }
 
         // Deprecated
-        private async Task CountingSort()
+        private void CountingSort()
         {
             int RANGE = elementos.Max() + 1; // Asegúrate de que el rango cubra todos los valores posibles
             int[] count = new int[RANGE];
@@ -431,7 +468,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             {
                 int indexAnterior = Array.IndexOf(elementos, output[i]);
                 elementos[i] = output[i];
-                await IntercambiarFiguras(i, indexAnterior);
+                IntercambiarFiguras(i, indexAnterior);
             }
         }
 
