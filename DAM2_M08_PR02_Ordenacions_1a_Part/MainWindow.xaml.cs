@@ -28,6 +28,9 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
         {
             InitializeComponent();
 
+            // he tendio que poner este apaño del gpt porque no me cargaba el default del iupPausa
+            iudPausa_ValueChanged(iudPausa, new RoutedPropertyChangedEventArgs<object>(null, iudPausa.Value));
+            
             // Establecer colores por defecto para los ColorPickers
             colorCorrecte.SelectedColor = Colors.Green;
             colorIncorrecter.SelectedColor = Colors.Red;
