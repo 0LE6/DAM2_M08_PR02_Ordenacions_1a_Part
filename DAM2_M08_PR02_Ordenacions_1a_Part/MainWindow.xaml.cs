@@ -40,9 +40,9 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
 
 
         // TODO:
-        //  [ ]   no usar fills (no usar async) // DoEvents i Espera - en el Moodle
+        //  [X]   no usar fills (no usar async) // DoEvents i Espera - en el Moodle
         //  [X]   usar 5 pincells
-        //  [ ]   cambiar altura de figura y no intercambiar la figura entera
+        //  [X ]   cambiar altura de figura y no intercambiar la figura entera
 
 
         public MainWindow()
@@ -58,6 +58,11 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             scbIncorrecte = new SolidColorBrush(Colors.Red);
             scbIntercambio = new SolidColorBrush(Colors.Yellow);
             scbFondo = new SolidColorBrush(Colors.White);
+
+            colorCorrecte.SelectedColor = scbCorrecte.Color;
+            colorIncorrecter.SelectedColor = scbIncorrecte.Color;
+            colorIntercanvi.SelectedColor = scbIntercambio.Color;
+            colorFons.SelectedColor = scbFondo.Color;
 
             // controladores de eventos para que lso cambios en los IntegerUpDown se vayan reflejando en mis 4 pincells
             colorCorrecte.SelectedColorChanged += ColorPicker_SelectedColorChanged;
@@ -489,9 +494,19 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             isMuted = !isMuted;
         }
 
-        private void checkColorSiONo_Checked(object sender, RoutedEventArgs e)
+        private void CheckColorSiONo_Checked(object sender, RoutedEventArgs e)
         {
-
+            scbIntercambio.Color = scbIncorrecte.Color; // O cualquier otro color para indicar "desactivado"
         }
+
+        private void CheckColorSiONo_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (colorIntercanvi.SelectedColor.HasValue)
+            {
+                scbIntercambio.Color = colorIntercanvi.SelectedColor.Value;
+            }
+        }
+
+
     }
 }

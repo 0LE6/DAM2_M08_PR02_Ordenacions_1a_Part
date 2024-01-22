@@ -46,12 +46,19 @@
                     </StackPanel>
 
                     <!-- Marca Intercanvis -->
-                    <Label Content="Marca Intercanvis ????"/>
-                    <ComboBox Name="cbColorIntercambios">
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                        <Label Content="Marca Intercanvis"/>
+                        <CheckBox Name="checkColorSiONo" 
+                                    Checked="CheckColorSiONo_Checked"
+                                    Unchecked="CheckColorSiONo_Unchecked"/>
+                    </StackPanel>
+                   
+
+                    <!--<ComboBox Name="cbColorIntercambios">
                         <CheckBox Name="checkColorSiONo" Content="Aleatori" Checked="checkColorSiONo_Checked"/>
-                        <!--<ComboBoxItem Content="Si"/>
-                        <ComboBoxItem Content="No"/>-->
-                    </ComboBox>
+                        --><!--<ComboBoxItem Content="Si"/>
+                        <ComboBoxItem Content="No"/>--><!--
+                    </ComboBox>-->
 
                     <!-- Tipos de figuras -->
                     <Label Content="Tipus de figures"/>
