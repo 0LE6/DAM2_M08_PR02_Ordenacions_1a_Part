@@ -59,12 +59,13 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             scbIntercambio = new SolidColorBrush(Colors.Yellow);
             scbFondo = new SolidColorBrush(Colors.White);
 
+            // le doy a mis color pickers el color de mis pincells
             colorCorrecte.SelectedColor = scbCorrecte.Color;
             colorIncorrecter.SelectedColor = scbIncorrecte.Color;
             colorIntercanvi.SelectedColor = scbIntercambio.Color;
             colorFons.SelectedColor = scbFondo.Color;
 
-            // controladores de eventos para que lso cambios en los IntegerUpDown se vayan reflejando en mis 4 pincells
+            // controladores de eventos para que los cambios en los IntegerUpDown se vayan reflejando en mis 4 pincells
             colorCorrecte.SelectedColorChanged += ColorPicker_SelectedColorChanged;
             colorIncorrecter.SelectedColorChanged += ColorPicker_SelectedColorChanged;
             colorIntercanvi.SelectedColorChanged += ColorPicker_SelectedColorChanged;
@@ -75,8 +76,9 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             iudRadi.ValueChanged += iudRadi_ValueChanged;
             colorFons.SelectedColorChanged += ColorFons_SelectedColorChanged;
 
+
             delayTimer = new DispatcherTimer();
-            delayTimer.Interval = TimeSpan.FromMilliseconds(500); // Ajusta esto según el retraso deseado
+            delayTimer.Interval = TimeSpan.FromMilliseconds(500);
             delayTimer.Tick += DelayTimer_Tick;
 
 
@@ -225,6 +227,9 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             // Cambiar las alturas de las figuras en lugar de intercambiarlas
             ActualizarAlturaFigura(index1, elementos[index1]);
             ActualizarAlturaFigura(index2, elementos[index2]);
+
+            // en las animaciones el delay antes de la actualizacion de la altura de las figuras
+            // A CAMBIAR PARA PA PR 2
 
             // Aplicar un breve retraso
             Retraso(delay);
