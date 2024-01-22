@@ -110,19 +110,19 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             UIElement figura1 = cvCanvas.Children[index1];
             UIElement figura2 = cvCanvas.Children[index2];
 
-            // Actualiza la posición de las figuras intercambiadas en el Canvas
+            // actualizamos la posición de las figuras intercambiadas en el Canvas
             ActualizarPosicionFigura(figura1, index2);
             ActualizarPosicionFigura(figura2, index1);
 
-            // Remueve los elementos de la colección de hijos de Canvas antes de intercambiar
+            // eliminamos los elementos de la colección de hijos de Canvas antes de intercambiar
+            // para posteriormente intercambiarlas figuras 
             cvCanvas.Children.Remove(figura1);
             cvCanvas.Children.Remove(figura2);
 
-            // Intercambia las figuras en la colección de hijos de Canvas
             cvCanvas.Children.Insert(index1, figura2);
             cvCanvas.Children.Insert(index2, figura1);
 
-            // Temporalmente cambiamos el color de las figuras que se están intercambiando
+            // aqui manjeamos el color de intercambio, este que es temporal
             CambiarColorFiguraTemporal(index1, colorIntercanvi.SelectedColor.Value);
             CambiarColorFiguraTemporal(index2, colorIntercanvi.SelectedColor.Value);
 
