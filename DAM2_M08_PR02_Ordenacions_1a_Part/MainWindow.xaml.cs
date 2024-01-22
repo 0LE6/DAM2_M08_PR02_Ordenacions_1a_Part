@@ -24,5 +24,10 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
         {
             InitializeComponent();
         }
+
+        private void btnOrdenar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

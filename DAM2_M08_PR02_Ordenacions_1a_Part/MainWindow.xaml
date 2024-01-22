@@ -102,7 +102,7 @@
                     <!-- Brillo del marc -->
                     <!--<Label Content="Brillo del marc ????"/>                    
                     <Slider Minimum="-10" Maximum="10" Value="1" TickFrequency="1" IsSnapToTickEnabled="True"/>-->
-                    <Button Name="btnOrdenar" FontSize="20" Content="Ordenar" Background="Orange" Foreground="White" Padding="10" Margin="10" />
+                    <Button Name="btnOrdenar" Click="btnOrdenar_Click" FontSize="20" Content="Ordenar" Background="Orange" Foreground="White" Padding="10" Margin="10" />
                 </StackPanel>
             </ScrollViewer>
         </Expander>
