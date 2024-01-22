@@ -344,6 +344,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             }
         }
 
+        // Deprecated
         private async Task CountingSort()
         {
             int RANGE = elementos.Max() + 1; // Asegúrate de que el rango cubra todos los valores posibles
