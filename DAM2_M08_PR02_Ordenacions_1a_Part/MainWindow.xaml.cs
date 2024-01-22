@@ -42,7 +42,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
 
         private void iudPausa_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            delay = (int)e.NewValue; // Actualiza el valor de delay
+            delay = (int)e.NewValue; // actualizamos el delay segun lo que haga el usuario
         }
 
         // Método auxiliar para controlar los checked y unchecked entre los 2 checkbox
@@ -65,14 +65,14 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
 
         private void ActualizarColorFigura(int index)
         {
-            // Comprobamos si la figura está en la posición correcta comparándola con la array ordenada
+            // comprobamos si la figura está en la posición correcta respecto a la array sorted
             int[] elementosOrdenados = elementos.OrderBy(x => x).ToArray();
             Color colorFigura = 
                 elementos[index] == elementosOrdenados[index] 
                 ? colorCorrecte.SelectedColor.Value 
                 : colorIncorrecter.SelectedColor.Value;
 
-            // Actualizamos el color de la figura
+            // actualizamos el color de la figura
             if (cvCanvas.Children[index] is Shape figura)
             {
                 figura.Fill = new SolidColorBrush(colorFigura);
@@ -129,7 +129,8 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             // un poco de delay para ver el cambio
             await Task.Delay(delay);
 
-            // Actualizamos el color de las figuras intercambiadas
+            // y al final se pone nlos colores de las dos figuras intercambiadas del 
+            // correcto o incorrecto segun donde este situada
             ActualizarColorFigura(index1);
             ActualizarColorFigura(index2);
         }
