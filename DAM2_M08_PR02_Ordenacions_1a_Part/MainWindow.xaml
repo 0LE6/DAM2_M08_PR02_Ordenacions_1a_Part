@@ -42,7 +42,7 @@
                     <!-- Tiempo de pausa -->
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Label Content="Temps Pausa" Width="125"/>
-                        <xctk:IntegerUpDown Name="iudPausa" Minimum="0" Maximum="1000" Value="100" Increment="1" Width="130"/>
+                        <xctk:IntegerUpDown Name="iudPausa" Minimum="0" Maximum="1000" Value="200" Increment="1" Width="130"/>
                     </StackPanel>
 
                     <!-- Marca Intercanvis -->

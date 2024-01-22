@@ -21,6 +21,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
     public partial class MainWindow : Window
     {
         private int[] elementos;
+        private int delay;
 
         public MainWindow()
         {
@@ -33,6 +34,13 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             // Si deseas configurar el color de fondo por defecto del Canvas:
             colorFons.SelectedColor = Colors.White; // O el color que prefieras
             cvCanvas.Background = new SolidColorBrush(colorFons.SelectedColor.Value);
+
+            iudPausa.ValueChanged += iudPausa_ValueChanged;
+        }
+
+        private void iudPausa_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            delay = (int)e.NewValue; // Actualiza el valor de delay
         }
 
         // Método auxiliar para controlar los checked y unchecked entre los 2 checkbox
@@ -69,7 +77,6 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
 
         private async Task BubbleSort()
         {
-            // Implementación del Bubble Sort que utiliza el método IntercambiarFiguras
             int n = elementos.Length;
             for (int i = 0; i < n - 1; i++)
             {
@@ -82,12 +89,14 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
                         // Actualiza el Canvas después del intercambio
                         cvCanvas.UpdateLayout();
 
-                        // Espera un poco antes de continuar con el siguiente intercambio
-                        await Task.Delay(100); // retraso en milisegundos
+                        // Usa el valor del IntegerUpDown para el retraso
+                        //int delay = iudPausa.Value ?? 0; // Asegúrate de que iudPausa no sea null
+                        await Task.Delay(delay);
                     }
                 }
             }
         }
+
 
 
         private void IntercambiarFiguras(int index1, int index2)
