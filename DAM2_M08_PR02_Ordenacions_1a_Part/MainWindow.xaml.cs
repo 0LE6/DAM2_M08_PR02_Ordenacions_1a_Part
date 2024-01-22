@@ -26,6 +26,18 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
         private double tamañoCiculito = 15; // aqui ajusto el tamaño del circulito
         private bool isMuted = false;
 
+        // meter 4 pincells (solid color brush)
+        SolidColorBrush scbCorrecte;
+        SolidColorBrush scbIncorrecte;
+        SolidColorBrush scbIntercambio;
+        SolidColorBrush scbFondo;
+
+        // TODO:
+        //      no usar fills
+        //      usar 5 pincells
+        //      cambiar altura de figura y no intercambiar la figura entera
+
+
         public MainWindow()
         {
             InitializeComponent();
