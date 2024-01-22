@@ -29,5 +29,10 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
         {
 
         }
+
+        private void btnPosicionar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -24,19 +24,19 @@
                     <!-- Número de elementos -->
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Label Content="Nº d'elements" Width="125"/>
-                        <xctk:IntegerUpDown Name="iudElements" Minimum="1" Maximum="100" Value="20" Increment="1" Width="130"/>
+                        <xctk:IntegerUpDown Name="iudElements" Minimum="1" Maximum="100" Value="10" Increment="1" Width="130"/>
                     </StackPanel>
 
                     <!-- Grosor del borde -->
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Label Content="Gruix del marc" Width="125"/>
-                        <xctk:IntegerUpDown Name="iudGrosor" Minimum="1" Maximum="10" Value="4" Increment="1" Width="130"/>
+                        <xctk:IntegerUpDown Name="iudGrosor" Minimum="1" Maximum="10" Value="0" Increment="1" Width="130"/>
                     </StackPanel>
 
                     <!-- Radio de las columnas -->
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Label Content="Radi de les columnes" Width="125"/>
-                        <xctk:IntegerUpDown Name="iudRadi" Minimum="0" Maximum="50" Value="20" Increment="1" Width="130"/>
+                        <xctk:IntegerUpDown Name="iudRadi" Minimum="0" Maximum="50" Value="5" Increment="1" Width="130"/>
                     </StackPanel>
 
                     <!-- Tiempo de pausa -->
@@ -102,7 +102,10 @@
                     <!-- Brillo del marc -->
                     <!--<Label Content="Brillo del marc ????"/>                    
                     <Slider Minimum="-10" Maximum="10" Value="1" TickFrequency="1" IsSnapToTickEnabled="True"/>-->
-                    <Button Name="btnOrdenar" Click="btnOrdenar_Click" FontSize="20" Content="Ordenar" Background="Orange" Foreground="White" Padding="10" Margin="10" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Name="btnOrdenar" Click="btnOrdenar_Click" FontSize="20" Content="Ordenar" Background="Orange" Foreground="White"  Padding="5" Margin="10" />
+                        <Button Name="btnPosicionar" Click="btnPosicionar_Click"  FontSize="20" Content="Posicionar" Background="Orange" Foreground="White" Margin="10" />
+                    </StackPanel>
                 </StackPanel>
             </ScrollViewer>
         </Expander>
