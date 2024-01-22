@@ -22,6 +22,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
     {
         private int[] elementos;
         private int delay;
+        private MediaPlayer mediaPlayer = new MediaPlayer();
 
         public MainWindow()
         {
@@ -31,17 +32,25 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
             colorCorrecte.SelectedColor = Colors.Green;
             colorIncorrecter.SelectedColor = Colors.Red;
             colorIntercanvi.SelectedColor = Colors.Yellow;
-
             colorFons.SelectedColor = Colors.White; 
-            cvCanvas.Background = new SolidColorBrush(colorFons.SelectedColor.Value);
+            
 
             // he usado dos controladores de eventos para los valores de la pausa y el radi
             iudPausa.ValueChanged += iudPausa_ValueChanged;
             iudRadi.ValueChanged += iudRadi_ValueChanged;
+            colorFons.SelectedColorChanged += ColorFons_SelectedColorChanged;
         }
 
         ////////////////////// CONTROLADORES DE EVENTOS /////////////////////////
-        
+
+        private void ColorFons_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
+        {
+            if (e.NewValue.HasValue)
+            {
+                cvCanvas.Background = new SolidColorBrush(e.NewValue.Value);
+            }
+        }
+
         private void iudRadi_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             if (e.NewValue is int nuevoRadio)
@@ -84,6 +93,11 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
 
         private async void btnOrdenar_Click(object sender, RoutedEventArgs e)
         {
+            // no se si funcionara esta tonteria
+            mediaPlayer.Open(new Uri("music/tetris.mp3", UriKind.Relative));
+            mediaPlayer.Play();
+
+
             string metodoSeleccionado = (cbOrdenacion.SelectedItem as ComboBoxItem)?.Content.ToString();
             switch (metodoSeleccionado)
             {
@@ -100,6 +114,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
                     await CountingSort();
                     break;
             }
+            mediaPlayer.Stop();
         }
 
         private async Task IntercambiarFiguras(int index1, int index2)
