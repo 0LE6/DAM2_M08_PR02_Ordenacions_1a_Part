@@ -7,7 +7,8 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
 
         mc:Ignorable="d"
-        Title="Ordenacions" Height="550" Width="800">
+        Title="Ordenació Visual" Height="635" Width="910">
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -17,22 +18,25 @@
         <Expander Header="Configuració" IsExpanded="True" Grid.Column="0" >
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel>
+                    <Border Background="Orange" Padding="3" Margin="0,5,2,5">
+                        <Label Content="General" Foreground="White"/>
+                    </Border>
                     <!-- Número de elementos -->
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Label Content="Nº d'elements" Width="125"/>
-                        <xctk:IntegerUpDown Minimum="1" Maximum="100" Value="20" Increment="1" Width="130"/>
+                        <xctk:IntegerUpDown Name="iudElements" Minimum="1" Maximum="100" Value="20" Increment="1" Width="130"/>
                     </StackPanel>
 
                     <!-- Grosor del borde -->
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Label Content="Gruix del marc" Width="125"/>
-                        <xctk:IntegerUpDown Minimum="1" Maximum="10" Value="4" Increment="1" Width="130"/>
+                        <xctk:IntegerUpDown Name="iudGrosor" Minimum="1" Maximum="10" Value="4" Increment="1" Width="130"/>
                     </StackPanel>
 
                     <!-- Radio de las columnas -->
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Label Content="Radi de les columnes" Width="125"/>
-                        <xctk:IntegerUpDown Minimum="0" Maximum="50" Value="20" Increment="1" Width="130"/>
+                        <xctk:IntegerUpDown Name="iudRadi" Minimum="0" Maximum="50" Value="20" Increment="1" Width="130"/>
                     </StackPanel>
 
                     <!-- Tiempo de pausa -->
@@ -66,12 +70,16 @@
                     </ComboBox>
 
                     <!-- Disposición inicial -->
-                    <Label Content="Disposició inicial"/>
-                    <RadioButton Content="Invertit"/>
-                    <RadioButton Content="Aleatori" IsChecked="True"/>
+                    <Border Background="Orange" Padding="3" Margin="0,5,0,5">
+                        <Label Content="Disposició inicial" Foreground="White"/>
+                    </Border>
+                    <CheckBox Content="Invertit"/>
+                    <CheckBox Content="Aleatori"/>
 
                     <!-- Colores -->
-                    <Label Content="Colors"/>
+                    <Border Background="Orange" Padding="3" Margin="0,5,0,5">
+                        <Label Content="Colors" Foreground="White"/>
+                    </Border>
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Label Content="Correcte" Width="120"/>
@@ -98,12 +106,11 @@
             </ScrollViewer>
         </Expander>
 
-        <Border Grid.Column="1" Background="Bisque" Margin="0">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <Canvas Width="500" Height="500" Background="White">
-                    <!-- Los elementos del Canvas van aquí -->
+        <Border Grid.Column="1" >
+            <Viewbox>
+                <Canvas Name="cvCanvas" Width="1000" Height="1000" Background="LightGray">
                 </Canvas>
-            </ScrollViewer>
+            </Viewbox>
         </Border>
     </Grid>
 </Window>
