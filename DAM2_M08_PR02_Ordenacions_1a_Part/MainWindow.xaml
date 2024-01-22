@@ -46,7 +46,7 @@
                     </StackPanel>
 
                     <!-- Marca Intercanvis -->
-                    <Label Content="Marca Intercanvis"/>
+                    <Label Content="Marca Intercanvis ????"/>
                     <ComboBox>
                         <ComboBoxItem Content="No entendi que tenia que hacer esto"/>
                         <ComboBoxItem Content="Lo siento"/>
@@ -98,7 +98,7 @@
                     </StackPanel>
 
                     <!-- Brillo del marc -->
-                    <Label Content="Brillo del marc"/>
+                    <Label Content="Brillo del marc ????"/>
                     <Slider Minimum="-10" Maximum="10" Value="1" TickFrequency="1" IsSnapToTickEnabled="True"/>
                 </StackPanel>
             </ScrollViewer>
