@@ -267,7 +267,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
                     {
                         // Para elipses, puedes decidir cambiar su tamaño o posición
                         // Aquí, como ejemplo, cambio el tamaño
- // Mantener la proporción si es necesario
+                        // Mantener la proporción si es necesario
                         Canvas.SetTop(elipse, alturaCanvas - nuevaAltura);
                     }
                 }
@@ -359,7 +359,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
                     // pintamos rectángulos
                     Rectangle rectangulo = new Rectangle
                     {
-                        Width = espacioEntreFiguras ,
+                        Width = espacioEntreFiguras,
                         Height = alturaFigura,
                         Stroke = new SolidColorBrush(Colors.Black), 
                         StrokeThickness = iudGrosor.Value ?? 0,
@@ -390,7 +390,7 @@ namespace DAM2_M08_PR02_Ordenacions_1a_Part
                     if (elementos[j] > elementos[j + 1])
                     {
                         IntercambiarFiguras(j, j + 1);
-                        cvCanvas.UpdateLayout();
+                        //cvCanvas.UpdateLayout();
 
                         // Este es mi primer intento con mi primer sorting algorithm,
                         // probamos dandole un delay segun selecciones el usuario
