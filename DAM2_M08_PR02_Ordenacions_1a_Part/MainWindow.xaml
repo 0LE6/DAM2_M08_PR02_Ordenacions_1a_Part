@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DAM2_M08_PR02_Ordenacions_1a_Part"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
 
         mc:Ignorable="d"
@@ -115,7 +116,26 @@
                         <Button Name="btnOrdenar" Click="btnOrdenar_Click" FontSize="20" Content="Ordenar" Background="Orange" Foreground="White"  Padding="5" Margin="10" />
                         <Button Name="btnPosicionar" Click="btnPosicionar_Click"  FontSize="20" Content="Posicionar" Background="Orange" Foreground="White" Margin="10" />
                     </StackPanel>
-                    <Button Name="btnMute" Content="Mute" Click="btnMute_Click" HorizontalAlignment="Center"/>
+                    <Grid HorizontalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Image gif:ImageBehavior.AnimatedSource="images/dance1.gif" Width="50" Height="50" Margin="-40,0,40,0"/>
+                        <!--<Image Grid.Column="0" Source="/images/dance1.gif" Width="30" Height="30" />-->
+
+                        <Button Grid.Column="1" Name="btnMute" Content="Mute" Click="btnMute_Click" HorizontalAlignment="Center" Width="50" Height="50"/>
+
+                        <Image Grid.Column="2" gif:ImageBehavior.AnimatedSource="images/dance1.gif" Width="50" Height="50" Margin="58,0,-58,0">
+                            <Image.RenderTransform>
+                                <ScaleTransform ScaleX="-1" CenterX="15"/>
+                            </Image.RenderTransform>
+                        </Image>
+                    </Grid>
+
+
 
                 </StackPanel>
             </ScrollViewer>
